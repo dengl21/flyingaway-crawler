@@ -143,8 +143,8 @@ class BingImageSpider(object):
             page = urllib.request.Request(self.url.format(key),headers=self.header)
             html = urllib.request.urlopen(page,timeout=2)
             soup = BeautifulSoup(html, "lxml")
-            with open("./html.html",'w') as f:
-                print(soup.prettify(), file=f)
+            # with open("./html.html",'w') as f:
+            #     print(soup.prettify(), file=f)
             link_list = soup.html.body.find("div",class_="search-pagination").find_all("a")
             if(len(link_list) > 1):
                 first_href=link_list[0].attrs["href"]

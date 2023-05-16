@@ -108,8 +108,8 @@ class BingImageSpider(object):
     def findImgUrlFromHtml(self, html, count):
         '''从缩略图列表页中找到原图的url，并返回这一页的图片数量'''
         soup = BeautifulSoup(html, "lxml")
-        with open("./strhtml.html",'w') as f:
-            print(soup.prettify(), file=f)
+        # with open("./strhtml.html",'w') as f:
+        #     print(soup.prettify(), file=f)
         link_list = soup.find_all("a", class_="iusc")
         url = []
         for link in link_list:

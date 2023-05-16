@@ -73,8 +73,8 @@ class BaiduImageSpider(object):
         try:
             self.header = {'User-Agent':self.ua.random}
             strhtml = requests.get(url, headers=self.header, timeout=5)  # Get方式获取网页数据
-            with open("./strhtml.json",'w') as f:
-                print(strhtml.text, file=f)
+            # with open("./strhtml.json",'w') as f:
+            #     print(strhtml.text, file=f)
             jsonInfo = json.loads(strhtml.text)
             # print(jsonInfo["data"][0])
             # print(jsonInfo)

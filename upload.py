@@ -15,6 +15,12 @@ class Gifuploader(object):
     def __init__(self):
         self.downloaddir = "./iamges"
         self.uploaddir = "./uploaded_iamges"
+        with open("query_words.json","r") as f:   #设置文件对象
+            jsoninfo = json.load(f)   
+        self.yinghsi_list = jsoninfo["影视安利"]
+        self.dongwu_list = jsoninfo["萌宠萌物"]
+        self.tiyu_list = jsoninfo["劲爆体育"]
+
         
         self.ua=UserAgent()
         self.header = {'User-Agent':self.ua.random}
@@ -95,6 +101,12 @@ class Gifuploader(object):
             query_word = "影视片段"
         elif (query_word == "电视剧"):
             query_word = "影视片段"
+        elif (query_word in self.yinghsi_list):
+            query_word = "影视片段"
+        elif (query_word in self.dongwu_list):
+            query_word = "动物世界"
+        elif (query_word in self.tiyu_list):
+            query_word = "体育运动"
         else:
             query_word = "gif"
         return query_word
@@ -111,7 +123,7 @@ class Gifuploader(object):
                 query_word = imgdir
                 # print("not match: ", query_word)
             query_word = self.fix_query_word(query_word)
-            # print("query_word: ", query_word)
+            print("query_word: ", query_word)
             download_subdir = os.path.join(self.downloaddir,imgdir)
             upload_subdir = os.path.join(self.uploaddir,query_word)
             img_name_list = os.listdir(download_subdir)
