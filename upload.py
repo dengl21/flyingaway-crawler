@@ -70,7 +70,7 @@ class Gifuploader(object):
             # print(self.upload_header)
             upload_item = json.dumps(upload_body,ensure_ascii=False)
             upload_item = upload_item.encode('utf-8')
-            upload_res =  self.session.post("https://flyingaway-backend-FlyingAway.app.secoder.net/api/gif/upload/", data=upload_item, headers = self.upload_header, timeout = 8)
+            upload_res =  self.session.post("https://flyingaway-backend-FlyingAway.app.secoder.net/api/gif/upload_crawler/", data=upload_item, headers = self.upload_header, timeout = 8)
             # print("uploadstatus_code:", upload_res.status_code)
             # print("uploadstatus_code:", upload_res.text)
             if (upload_res.status_code == 200):
