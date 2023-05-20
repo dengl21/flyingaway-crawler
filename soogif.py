@@ -161,7 +161,6 @@ class BingImageSpider(object):
                 # print(numbers)
                 for pagenum in range(1,page_num+1):
                     numbers[1] = str(pagenum)
-                    # print(numbers)
                     # print("-".join(numbers))
                     page_link_list.append("https://www.soogif.com/gif/" + "-".join(numbers) + ".html")
             else:
