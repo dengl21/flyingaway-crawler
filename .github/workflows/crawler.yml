@@ -24,7 +24,7 @@ jobs:
       - name: Checkout file fingers
         uses: moonrailgun/branch-filestorage-action@v1.2.0
         with:
-          path: ./data/fingers.json
+          path: data/fingers.json
       - name: 'Working'
         run: python ./run_time.py
 
