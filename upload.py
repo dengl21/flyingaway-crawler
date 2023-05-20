@@ -69,7 +69,7 @@ class Gifuploader(object):
             # print(self.upload_header)
             upload_item = json.dumps(upload_body,ensure_ascii=False)
             upload_item = upload_item.encode('utf-8')
-            upload_res =  self.session.post("https://flyingaway-backend-FlyingAway.app.secoder.net/api/gif/upload/", data=upload_item, headers = self.upload_header, timeout = 10)
+            upload_res =  self.session.post("https://flyingaway-backend-FlyingAway.app.secoder.net/api/gif/upload/", data=upload_item, headers = self.upload_header, timeout = 8)
             # print("uploadstatus_code:", upload_res.status_code)
             # print("uploadstatus_code:", upload_res.text)
             if (upload_res.status_code == 200):
@@ -112,8 +112,8 @@ class Gifuploader(object):
                 # print("not match: ", query_word)
             tag = query_word
             query_word = self.fix_query_word(query_word)
-            if(query_word == "gif"):
-                continue
+            # if(query_word == "gif"):
+            #     continue
             # print("tag: ", tag)
             # print("query_word: ", query_word)
             download_subdir = os.path.join(self.downloaddir,imgdir)
