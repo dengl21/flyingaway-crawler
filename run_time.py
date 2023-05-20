@@ -51,6 +51,6 @@ commond = "python vsgif.py  --json_count 50"
 print("commond: ", commond)
 os.system(commond)
 
-# commond = "python upload.py"
-# print("commond: ", commond)
-# os.system(commond)
+commond = "python upload.py"
+print("commond: ", commond)
+os.system(commond)
