@@ -24,6 +24,6 @@ jobs:
       - name: Checkout file data
         uses: moonrailgun/branch-filestorage-action@v1.2.0
         with:
-        path: data
+          path: data
       - name: 'Working'
         run: python ./run_time.py >> data/run.log 2>&1
