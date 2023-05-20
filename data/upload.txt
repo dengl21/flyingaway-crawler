@@ -1,5 +1,5 @@
-imgdir:  人物反应
+imgdir:  人物反应gif
 tag:  人物反应
 query_word:  人物反应
-download_subdir:  ./iamges/人物反应
+download_subdir:  ./iamges/人物反应gif
 upload_subdir:  ./uploaded_iamges/人物反应

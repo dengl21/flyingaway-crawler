@@ -6,10 +6,4 @@ lxml
 
 bs4
 
-html5lib
-
-Selenium
-
-Scrapy
-
 Pillow
