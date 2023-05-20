@@ -12,6 +12,10 @@ import base64
 import random
 
 
+data_path = "./data"
+log_path = os.path.join(data_path, 'downloadlog_dontu.txt')
+finger_path = os.path.join(data_path, "fingers.json")
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--json_count', type=int, default=5,
@@ -53,8 +57,8 @@ class DongtuImageSpider(object):
         item = json.dumps(body,ensure_ascii=False)
         login_res = self.session.post("https://flyingaway-backend-FlyingAway.app.secoder.net/api/user/login/", data=item, headers=self.login_header)
         print("login_status_code:", login_res.status_code)
-        with open("login_res.json","w") as f:   #设置文件对象
-            print(login_res.text, file=f)
+        # with open("login_res.json","w") as f:   #设置文件对象
+        #     print(login_res.text, file=f)
 
     # 创建存储文件夹
     def create_directory(self):
@@ -154,7 +158,7 @@ class DongtuImageSpider(object):
             with open('uploadlog_dontu.txt', "a") as f:
                 print(f"----图像上传{self.pic_number}张完成--------->\n", file=f)
         else:
-            with open('downloadlog_dontu.txt', "a") as f:
+            with open(log_path, "a") as f:
                 print(f"----图像下载{self.pic_number}张完成--------->\n", file=f)
 
 
@@ -163,8 +167,8 @@ if __name__ == '__main__':
     spider.json_count = args.json_count   # 定义下载10组图像，也就是三百张
 
     if(args.clear_memory):
-        if os.path.exists("fingers.json"):
-            os.remove("fingers.json")
+        if os.path.exists(finger_path):
+            os.remove(finger_path)
         if os.path.exists("./iamges/gif/"):
             shutil.rmtree("./iamges/gif/")
 
@@ -174,8 +178,8 @@ if __name__ == '__main__':
 
 
     ##读取
-    if os.path.exists("fingers.json"):
-        with open("fingers.json","r") as f:   #设置文件对象
+    if os.path.exists(finger_path):
+        with open(finger_path,"r") as f:   #设置文件对象
             info_json = json.load(f)    
         # print(info_json["fingers"])
 
@@ -183,7 +187,7 @@ if __name__ == '__main__':
     # print(info_json["fingers"])
 
     ##保存
-    with open('fingers.json', 'w') as f:
+    with open(finger_path, 'w') as f:
         json.dump(info_json,f,ensure_ascii=False)
     
 

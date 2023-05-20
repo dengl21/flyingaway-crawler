@@ -1,0 +1,5 @@
+imgdir:  人物反应
+tag:  人物反应
+query_word:  人物反应
+download_subdir:  ./iamges/人物反应
+upload_subdir:  ./uploaded_iamges/人物反应

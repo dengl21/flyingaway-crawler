@@ -12,6 +12,9 @@ import random
 import base64
 from PIL import Image
 
+data_path = "./data"
+log_path = os.path.join(data_path, 'downloadlog_vsgif.txt')
+finger_path = os.path.join(data_path, "fingers.json")
 
 
 parser = argparse.ArgumentParser()
@@ -32,7 +35,7 @@ info_json = {
     "fingers":[]
 }
 
-class BaiduImageSpider(object):
+class VsgifImageSpider(object):
     def __init__(self):
         self.json_count = 0  # 请求到的json文件数量（一个json文件包含30个图像文件）
         self.url = "https://vsgif.com/getgoodsajax?page={}"
@@ -57,8 +60,8 @@ class BaiduImageSpider(object):
         item = json.dumps(body,ensure_ascii=False)
         login_res = self.session.post("https://flyingaway-backend-FlyingAway.app.secoder.net/api/user/login/", data=item, headers=self.login_header)
         print("login_status_code:", login_res.status_code)
-        with open("login_res.json","w") as f:   #设置文件对象
-            print(login_res.text, file=f)
+        # with open("login_res.json","w") as f:   #设置文件对象
+        #     print(login_res.text, file=f)
 
     # 创建存储文件夹
     def create_directory(self):
@@ -172,17 +175,17 @@ class BaiduImageSpider(object):
             with open('uploadlog_vsgif.txt', "a") as f:
                 print("gif"+f"----图像上传{self.pic_number}张完成--------->\n", file=f)
         else:
-            with open('downloadlog_vsgif.txt', "a") as f:
+            with open(log_path, "a") as f:
                 print("gif"+f"----图像下载{self.pic_number}张完成--------->\n", file=f)
 
 if __name__ == '__main__':
-    spider = BaiduImageSpider()
+    spider = VsgifImageSpider()
     spider.json_count = args.json_count   # 定义下载10组图像，也就是三百张
 
     # print("true")
     if(args.clear_memory):
-        if os.path.exists("fingers.json"):
-            os.remove("fingers.json")
+        if os.path.exists(finger_path):
+            os.remove(finger_path)
         if os.path.exists("./iamges/gif/"):
             shutil.rmtree("./iamges/gif/")
 
@@ -192,8 +195,8 @@ if __name__ == '__main__':
 
 
     ##读取
-    if os.path.exists("fingers.json"):
-        with open("fingers.json","r") as f:   #设置文件对象
+    if os.path.exists(finger_path):
+        with open(finger_path,"r") as f:   #设置文件对象
             info_json = json.load(f)    
         # print(info_json["fingers"])
 
@@ -201,7 +204,7 @@ if __name__ == '__main__':
     # print(info_json["fingers"])
 
     ##保存
-    with open('fingers.json', 'w') as f:
+    with open(finger_path, 'w') as f:
         json.dump(info_json,f,ensure_ascii=False)
     
 

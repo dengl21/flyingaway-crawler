@@ -1,0 +1,9 @@
+Now scanning "./iamges/人物反应", found 16863 files.
+Now have 16863 files in total.
+Removed 0 files due to nonunique device and inode.
+Total size is 28192343735 bytes or 26 GiB
+Removed 15305 files due to unique sizes from list.1558 files left.
+Now eliminating candidates based on first bytes:removed 118 files from list.1440 files left.
+Now eliminating candidates based on last bytes:removed 2 files from list.1438 files left.
+Now eliminating candidates based on sha1 checksum:login_status_code: 200
+commond:  rdfind -deleteduplicates true ./iamges/人物反应

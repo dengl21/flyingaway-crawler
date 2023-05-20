@@ -12,6 +12,10 @@ import random
 import json
 import requests
 
+data_path = "./data"
+log_path = os.path.join(data_path, 'downloadlog_bing.txt')
+finger_path = os.path.join(data_path, "fingers.json")
+
 
 parser = argparse.ArgumentParser()
 
@@ -175,26 +179,26 @@ class BingImageSpider(object):
             with open('uploadlog_bing.txt', "a") as f:
                 print(searchName+f"----图像上传{count}张完成--------->\n", file=f)
         else:
-            with open('downloadlog_bing.txt', "a") as f:
+            with open(log_path, "a") as f:
                 print(searchName+f"----图像下载{count}张完成--------->\n", file=f)
  
 if __name__ == '__main__':
     spider = BingImageSpider()
     if(args.clear_memory):
-        if os.path.exists("fingers.json"):
-            os.remove("fingers.json")
-        if os.path.exists("./iamges/gif/"):
-            shutil.rmtree("./iamges/gif/")
+        if os.path.exists(finger_path):
+            os.remove(finger_path)
+        if os.path.exists(f"./iamges/{args.query_word}/"):
+            shutil.rmtree(f"./iamges/{args.query_word}/")
 
 
     ##读取
-    if os.path.exists("fingers.json"):
-        with open("fingers.json","r") as f:   #设置文件对象
+    if os.path.exists(finger_path):
+        with open(finger_path,"r") as f:   #设置文件对象
             info_json = json.load(f)    
         # print(info_json["fingers"])
 
     spider.run()
 
         ##保存
-    with open('fingers.json', 'w') as f:
+    with open(finger_path, 'w') as f:
         json.dump(info_json,f,ensure_ascii=False)

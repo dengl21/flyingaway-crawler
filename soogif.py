@@ -13,6 +13,10 @@ import random
 import requests
 
 
+data_path = "./data"
+log_path = os.path.join(data_path, 'downloadlog_soogif.txt')
+finger_path = os.path.join(data_path, "fingers.json")
+
 parser = argparse.ArgumentParser()
 
 
@@ -150,8 +154,8 @@ class BingImageSpider(object):
                 first_href=link_list[0].attrs["href"]
                 last_href=link_list[-2].attrs["href"]
                 page_num = int(self.last_page_rule.match(last_href).groups()[0])
-                if (page_num > 20):
-                    page_num = 20
+                if (page_num > 15):
+                    page_num = 15
                 numbers = list(self.first_page_rule.match(first_href).groups())
                 # print("len: ",len)
                 # print(numbers)
@@ -179,27 +183,27 @@ class BingImageSpider(object):
             with open('uploadlog_soogif.txt', "a") as f:
                 print(searchName+f"----图像上传{self.pic_number}张完成--------->\n", file=f)
         else:
-            with open('downloadlog_soogif.txt', "a") as f:
+            with open(log_path, "a") as f:
                 print(searchName+f"----图像下载{self.pic_number}张完成--------->\n", file=f)
     
  
 if __name__ == '__main__':
     spider = BingImageSpider()
     if(args.clear_memory):
-        if os.path.exists("fingers.json"):
-            os.remove("fingers.json")
+        if os.path.exists(finger_path):
+            os.remove(finger_path)
         if os.path.exists("./iamges/{}/".format(args.query_word)):
             shutil.rmtree("./iamges/{}/".format(args.query_word))
 
 
     ##读取
-    if os.path.exists("fingers.json"):
-        with open("fingers.json","r") as f:   #设置文件对象
+    if os.path.exists(finger_path):
+        with open(finger_path,"r") as f:   #设置文件对象
             info_json = json.load(f)    
         # print(info_json["fingers"])
 
     spider.run()
 
         ##保存
-    with open('fingers.json', 'w') as f:
+    with open(finger_path, 'w') as f:
         json.dump(info_json,f,ensure_ascii=False)

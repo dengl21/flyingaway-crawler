@@ -59,8 +59,8 @@ for item in href_list:
     now_page = urllib.request.Request(item["href"],headers=header)
     now_html = urllib.request.urlopen(now_page,timeout=3)
     now_soup = BeautifulSoup(now_html, "lxml")
-    with open("./html.html",'w') as f:
-        print(soup.prettify(), file=f)
+    # with open("./html.html",'w') as f:
+        # print(soup.prettify(), file=f)
 
     title_list = now_soup.html.body.find("div",class_="classification-container").find("div",class_="column-content-list").find_all("a",class_="column-item")
     # print(title_list)
@@ -73,5 +73,5 @@ for item in href_list:
 # print(query_words)
 
 ##保存
-with open('query_words.json', 'w') as f:
+with open('./data/query_words.json', 'w') as f:
     json.dump(query_words,f,ensure_ascii=False)

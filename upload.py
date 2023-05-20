@@ -15,7 +15,7 @@ class Gifuploader(object):
     def __init__(self):
         self.downloaddir = "./iamges"
         self.uploaddir = "./uploaded_iamges"
-        with open("query_words.json","r") as f:   #设置文件对象
+        with open("./data/query_words.json","r") as f:   #设置文件对象
             jsoninfo = json.load(f)   
         self.yinghsi_list = jsoninfo["影视安利"]
         self.dongwu_list = jsoninfo["萌宠萌物"]
@@ -41,11 +41,11 @@ class Gifuploader(object):
         item = json.dumps(body,ensure_ascii=False)
         login_res = self.session.post("https://flyingaway-backend-FlyingAway.app.secoder.net/api/user/login/", data=item, headers=self.login_header)
         print("login_status_code:", login_res.status_code)
-        with open("login_res.json","w") as f:   #设置文件对象
-            print(login_res.text, file=f)
+        # with open("login_res.json","w") as f:   #设置文件对象
+        #     print(login_res.text, file=f)
 
     # 上传图片
-    def uploadgif(self, img_path, move_path, filename, query_word):
+    def uploadgif(self, img_path, move_path, filename, query_word, tag):
         # print("img_path: ", img_path)
         # print("move_path: ", move_path)
         # print("filename: ", filename)
@@ -62,7 +62,7 @@ class Gifuploader(object):
             upload_body = {
                 "gif_file": base64_str,
                 "gif_name": filename,
-                "gif_tag": [query_word],
+                "gif_tag": [tag],
                 "gif_category": query_word
             }
             # print(upload_body)
@@ -85,28 +85,16 @@ class Gifuploader(object):
             print(r)
 
     def fix_query_word(self, query_word):
-        if (query_word == "体育" or query_word == "运动"):
+        if (query_word == "体育运动" or query_word == "体育" or query_word == "运动" or query_word in self.tiyu_list):
             query_word = "体育运动"
-        elif (query_word == "动物"):
+        elif (query_word == "动物世界" or query_word == "动物" or query_word == "猫" or query_word == "狗" or query_word == "鸭" or query_word in self.dongwu_list):
             query_word = "动物世界"
-        elif (query_word == "猫"):
-            query_word = "动物世界"
-        elif (query_word == "狗"):
-            query_word = "动物世界"
-        elif (query_word == "鸭"):
-            query_word = "动物世界"
-        elif (query_word == "影视"):
+        elif (query_word == "影视片段" or query_word == "影视" or query_word == "电影" or query_word == "电视剧" or query_word in self.yinghsi_list):
             query_word = "影视片段"
-        elif (query_word == "电影"):
-            query_word = "影视片段"
-        elif (query_word == "电视剧"):
-            query_word = "影视片段"
-        elif (query_word in self.yinghsi_list):
-            query_word = "影视片段"
-        elif (query_word in self.dongwu_list):
-            query_word = "动物世界"
-        elif (query_word in self.tiyu_list):
-            query_word = "体育运动"
+        elif (query_word == "动画表情"):
+            query_word = "动画表情"
+        elif (query_word == "人物反应"):
+            query_word = "人物反应"
         else:
             query_word = "gif"
         return query_word
@@ -117,20 +105,29 @@ class Gifuploader(object):
         rule = re.compile("..*gif$")
         for imgdir in imgdir_list:
             if rule.match(imgdir):
-                query_word = imgdir[:-4] 
+                query_word = imgdir[:-3] 
                 # print("match: ", query_word)
             else :
                 query_word = imgdir
                 # print("not match: ", query_word)
+            tag = query_word
             query_word = self.fix_query_word(query_word)
-            print("query_word: ", query_word)
+            if(query_word == "gif"):
+                continue
+            # print("tag: ", tag)
+            # print("query_word: ", query_word)
             download_subdir = os.path.join(self.downloaddir,imgdir)
+            commond = f"rdfind -deleteduplicates true {download_subdir}"
+            print("commond: ", commond)
+            os.system(commond)
             upload_subdir = os.path.join(self.uploaddir,query_word)
             img_name_list = os.listdir(download_subdir)
-            # print("imgdir: ", imgdir)
-            # print("query_word: ", query_word)
-            # print("download_subdir: ", download_subdir)
-            # print("upload_subdir: ", upload_subdir)
+            with open("./data/upload.txt", "w") as f:
+                print("imgdir: ", imgdir, file=f)
+                print("tag: ", tag, file=f)
+                print("query_word: ", query_word, file=f)
+                print("download_subdir: ", download_subdir, file=f)
+                print("upload_subdir: ", upload_subdir, file=f)
 
             if not os.path.exists(upload_subdir):
                 os.makedirs(upload_subdir)
@@ -139,10 +136,11 @@ class Gifuploader(object):
                 img_path = os.path.join(download_subdir,img_name)
                 move_path = os.path.join(upload_subdir,img_name)
                 if not os.path.exists(move_path):
-                    self.uploadgif(img_path, move_path, img_name, query_word)
-
-            with open('uploadlog.txt', "a") as f:
-                print(imgdir+f"----图像上传{self.pic_number}张完成--------->\n", file=f)
+                    self.uploadgif(img_path, move_path, img_name, query_word, tag)
+                if (self.pic_number > 20000):
+                    with open('./data/uploadlog.txt', "a") as f:
+                        print(imgdir+f"----图像上传{self.pic_number}张完成--------->\n", file=f)
+                    return
 
 if __name__ == '__main__':
     uploader = Gifuploader()
