@@ -112,8 +112,8 @@ class Gifuploader(object):
                 # print("not match: ", query_word)
             tag = query_word
             query_word = self.fix_query_word(query_word)
-            # if(query_word == "gif"):
-            #     continue
+            if(query_word == "gif" or query_word == "人物反应"):
+                continue
             # print("tag: ", tag)
             # print("query_word: ", query_word)
             download_subdir = os.path.join(self.downloaddir,imgdir)
