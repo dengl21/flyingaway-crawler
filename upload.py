@@ -9,6 +9,7 @@ import argparse
 import shutil
 import base64
 import re
+import time
 
 
 class Gifuploader(object):
@@ -112,8 +113,8 @@ class Gifuploader(object):
                 # print("not match: ", query_word)
             tag = query_word
             query_word = self.fix_query_word(query_word)
-            if(query_word == "gif" or query_word == "人物反应"):
-                continue
+            # if(query_word == "gif" or query_word == "人物反应" or query_word == "体育运动" or query_word == "动物世界"):
+            #     continue
             # print("tag: ", tag)
             # print("query_word: ", query_word)
             download_subdir = os.path.join(self.downloaddir,imgdir)
@@ -137,6 +138,7 @@ class Gifuploader(object):
                 move_path = os.path.join(upload_subdir,img_name)
                 if not os.path.exists(move_path):
                     self.uploadgif(img_path, move_path, img_name, query_word, tag)
+                    time.sleep(5)
                 if (self.pic_number > 20000):
                     with open('./data/uploadlog.txt', "a") as f:
                         print(imgdir+f"----图像上传{self.pic_number}张完成--------->\n", file=f)

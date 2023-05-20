@@ -1,5 +1,5 @@
-imgdir:  体育gif
-tag:  体育
-query_word:  体育运动
-download_subdir:  ./iamges/体育gif
-upload_subdir:  ./uploaded_iamges/体育运动
+imgdir:  动画表情
+tag:  动画表情
+query_word:  动画表情
+download_subdir:  ./iamges/动画表情
+upload_subdir:  ./uploaded_iamges/动画表情

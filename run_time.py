@@ -43,7 +43,7 @@ query_word_list = sample(query_word_list, 10)
 #     os.system(commond)
 #     break
 
-commond = "python dongtugif.py  --json_count 52"
+commond = "python dongtugif.py  --json_count 53"
 print("commond: ", commond)
 os.system(commond)
 
