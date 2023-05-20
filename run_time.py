@@ -21,7 +21,7 @@ query_word_list = sample(query_word_list, 10)
 #     if (os.path.exists(f"./iamges/{query_word}gif")):
 #         continue
 #     query_word += "gif"
-#     commond = f"python baidugif.py --json_count 30 --query_word {query_word}"
+#     commond = f"python baidugif.py --json_count 15 --query_word {query_word}"
 #     print("commond: ", commond)
 #     os.system(commond)
     # break
@@ -43,11 +43,11 @@ for query_word in query_word_list:
     os.system(commond)
     break
 
-commond = "python dongtugif.py  --json_count 102"
+commond = "python dongtugif.py  --json_count 50"
 print("commond: ", commond)
 os.system(commond)
 
-commond = "python vsgif.py  --json_count 102"
+commond = "python vsgif.py  --json_count 50"
 print("commond: ", commond)
 os.system(commond)
 
