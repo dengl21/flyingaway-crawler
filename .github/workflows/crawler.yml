@@ -28,26 +28,4 @@ jobs:
       - name: 'Working'
         run: python ./run_time.py >> data/run.log 2>&1
 
-name: Tests
-
-on:
-  # push:
-  #   branches: 
-  #     - master
-  workflow_dispatch:
-
-jobs:
-  test:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Checkout file date
-      uses: moonrailgun/branch-filestorage-action@v1.2.0
-      with:
-        path: date
-    - name: Read and show
-      run: touch date && cat date
-    - name: update date
-      run: echo $(date) > date
 

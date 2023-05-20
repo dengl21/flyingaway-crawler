@@ -17,39 +17,39 @@ query_word_list = basel_query_words + query_word_list
 query_word_list = sample(query_word_list, 10) 
 
 
-for query_word in query_word_list:
-    if (os.path.exists(f"./iamges/{query_word}gif")):
-        continue
-    query_word += "gif"
-    commond = f"python baidugif.py --json_count 20 --query_word {query_word}"
-    print("commond: ", commond)
-    os.system(commond)
-    # break
+# for query_word in query_word_list:
+#     if (os.path.exists(f"./iamges/{query_word}gif")):
+#         continue
+#     query_word += "gif"
+#     commond = f"python baidugif.py --json_count 20 --query_word {query_word}"
+#     print("commond: ", commond)
+#     os.system(commond)
+#     # break
 
 for query_word in query_word_list:
     if (os.path.exists(f"./iamges/{query_word}gif")):
         continue
     query_word += "gif"
-    commond = f"python binggif.py --countNum 100 --query_word {query_word}"
+    commond = f"python binggif.py --countNum 20 --query_word {query_word}"
     print("commond: ", commond)
     os.system(commond)
     # break
 
-for query_word in query_word_list:
-    if (os.path.exists(f"./iamges/{query_word}")):
-        continue
-    commond = f"python soogif.py --query_word  {query_word}"
-    print("commond: ", commond)
-    os.system(commond)
-    break
+# for query_word in query_word_list:
+#     if (os.path.exists(f"./iamges/{query_word}")):
+#         continue
+#     commond = f"python soogif.py --query_word  {query_word}"
+#     print("commond: ", commond)
+#     os.system(commond)
+#     break
 
-commond = "python dongtugif.py  --json_count 50"
-print("commond: ", commond)
-os.system(commond)
+# commond = "python dongtugif.py  --json_count 50"
+# print("commond: ", commond)
+# os.system(commond)
 
-commond = "python vsgif.py  --json_count 50"
-print("commond: ", commond)
-os.system(commond)
+# commond = "python vsgif.py  --json_count 50"
+# print("commond: ", commond)
+# os.system(commond)
 
 commond = "python upload.py"
 print("commond: ", commond)
